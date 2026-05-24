@@ -1,0 +1,10 @@
+# Robots.txt - Barbería del Puerto
+# https://www.barberiadelpuerto.com/
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /*.json$
+
+# Sitemap
+Sitemap: https://www.barberiadelpuerto.com/sitemap.xml

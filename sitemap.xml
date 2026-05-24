@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.barberiadelpuerto.com/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.barberiadelpuerto.com/images/local%20por%20dentro.webp</image:loc>
+      <image:title>Interior de Barbería del Puerto</image:title>
+      <image:caption>Local de Barbería del Puerto en Almerimar, Almería</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.barberiadelpuerto.com/images/logo.webp</image:loc>
+      <image:title>Logo Barbería del Puerto</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.barberiadelpuerto.com/#servicios</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.barberiadelpuerto.com/#opiniones</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.barberiadelpuerto.com/#contacto</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

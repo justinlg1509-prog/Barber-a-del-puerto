@@ -1,0 +1,25 @@
+{
+  "name": "Barbería del Puerto",
+  "short_name": "Barbería Puerto",
+  "description": "Barbería en Almerimar, Almería. Cortes, barba y afeitado tradicional junto al puerto deportivo.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#c8a96a",
+  "orientation": "portrait",
+  "lang": "es-ES",
+  "icons": [
+    {
+      "src": "images/logo.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/logo.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any"
+    }
+  ]
+}
