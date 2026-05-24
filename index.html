@@ -48,12 +48,33 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.unsplash.com" />
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1920&q=80" />
+  <!-- Mobile hero preload (high priority) -->
+  <link rel="preload" as="image" media="(max-width: 768px)" fetchpriority="high"
+        href="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=60" />
+  <!-- Desktop hero preload -->
+  <link rel="preload" as="image" media="(min-width: 769px)" fetchpriority="high"
+        href="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1920&q=70" />
 
   <!-- ===== ESTILOS ===== -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- CSS propio: crítico, bloquea render -->
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Fuentes: async para no bloquear render -->
+  <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" />
+  </noscript>
+
+  <!-- Font Awesome: async para no bloquear render -->
+  <link rel="preload" as="style"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  </noscript>
 
   <!-- ===== DATOS ESTRUCTURADOS (Schema.org) ===== -->
   <script type="application/ld+json">
@@ -120,7 +141,6 @@
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Corte moderno" }, "price": "14", "priceCurrency": "EUR" },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Arreglo de barba" }, "price": "8", "priceCurrency": "EUR" },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Afeitado tradicional" }, "price": "15", "priceCurrency": "EUR" },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Corte + Barba" }, "price": "20", "priceCurrency": "EUR" },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Corte infantil" }, "price": "10", "priceCurrency": "EUR" }
       ]
     },
@@ -131,6 +151,64 @@
       "bestRating": "5",
       "worstRating": "1"
     }
+  }
+  </script>
+
+  <!-- ===== FAQ Schema ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Necesito pedir cita previa en Barbería del Puerto?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí, trabajamos con cita previa para garantizarte una atención sin esperas. Reserva por WhatsApp al 603 23 51 91 o llamándonos directamente."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuánto cuesta un corte de pelo en Barbería del Puerto?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Los cortes parten desde 12€ (corte clásico). Un corte moderno o degradado cuesta 14€, y el corte infantil 10€. El arreglo de barba 8€ y el afeitado tradicional 15€."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Hacéis afeitado tradicional con navaja?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. Nuestro afeitado tradicional incluye toalla caliente, aceite pre-afeitado, espuma profesional, pasada con navaja y bálsamo post-afeitado por 15€."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Atendéis a niños?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí, tenemos un servicio de corte infantil hasta los 12 años por 10€, con paciencia y un ambiente amable."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué métodos de pago aceptáis?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Aceptamos efectivo, tarjeta y Bizum, sin importe mínimo y sin recargo por pago con tarjeta."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Dónde está Barbería del Puerto y hay aparcamiento?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Estamos en Calle Draga, 3, 04711 Almerimar (Almería), a menos de 100 metros del puerto deportivo. Hay aparcamiento gratuito en la zona del puerto."
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -154,10 +232,9 @@
       <nav class="nav-menu" id="navMenu">
         <ul>
           <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#nosotros">Nosotros</a></li>
           <li><a href="#servicios">Servicios</a></li>
-          <li><a href="#galeria">Galería</a></li>
           <li><a href="#opiniones">Opiniones</a></li>
+          <li><a href="#faq">FAQ</a></li>
           <li><a href="#contacto">Contacto</a></li>
           <li><a href="https://wa.me/34603235191" class="nav-cta" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Pedir cita</a></li>
         </ul>
@@ -169,22 +246,26 @@
   <section class="hero" id="inicio">
     <div class="hero-overlay"></div>
     <div class="container hero-content">
-      <span class="hero-tag">Almerimar · Almería</span>
-      <h1>Tu barbería de<br><span class="gold">confianza</span> junto al puerto</h1>
+      <span class="hero-tag"><i class="fa-solid fa-star"></i> 5★ con 193 opiniones en Google</span>
+      <h1>Barbería en Almerimar:<br><span class="gold">cortes, barba y afeitado</span> con sello propio</h1>
       <p class="hero-subtitle">
-        Cortes clásicos y modernos, arreglo de barba y afeitado tradicional.
-        Cuidado masculino con detalle profesional en un ambiente relajado.
+        En <strong>Barbería del Puerto</strong> llevamos más de 10 años cuidando el look masculino
+        en Almerimar y alrededores. Cortes clásicos, fades, arreglo de barba y afeitado tradicional
+        en un ambiente cercano. Reserva en menos de 30 segundos.
       </p>
       <div class="hero-buttons">
-        <a href="https://wa.me/34603235191" class="btn btn-primary" target="_blank" rel="noopener">
+        <a href="https://wa.me/34603235191?text=Hola%2C+quiero+reservar+una+cita" class="btn btn-primary" target="_blank" rel="noopener">
           <i class="fa-brands fa-whatsapp"></i> Reservar por WhatsApp
         </a>
-        <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+        <a href="tel:+34603235191" class="btn btn-outline">
+          <i class="fa-solid fa-phone"></i> 603 23 51 91
+        </a>
       </div>
 
       <div class="hero-info">
-        <div><i class="fa-solid fa-location-dot"></i> Calle Draga, 3 · Almerimar</div>
-        <div><i class="fa-solid fa-clock"></i> Lun–Vie 9:00–20:00 · Sáb 9:00–14:00</div>
+        <div><i class="fa-solid fa-location-dot"></i> Calle Draga, 3 · Junto al puerto</div>
+        <div><i class="fa-solid fa-clock"></i> Hoy abierto · Lun–Sáb</div>
+        <div><i class="fa-solid fa-credit-card"></i> Efectivo · Tarjeta · Bizum</div>
       </div>
     </div>
 
@@ -193,11 +274,45 @@
     </a>
   </section>
 
+  <!-- ===== USP STRIP ===== -->
+  <section class="usp-strip" aria-label="Beneficios destacados">
+    <div class="container usp-grid">
+      <div class="usp-item">
+        <i class="fa-solid fa-medal"></i>
+        <div>
+          <strong>+10 años</strong>
+          <span>de experiencia</span>
+        </div>
+      </div>
+      <div class="usp-item">
+        <i class="fa-solid fa-users"></i>
+        <div>
+          <strong>+5.000</strong>
+          <span>clientes atendidos</span>
+        </div>
+      </div>
+      <div class="usp-item">
+        <i class="fa-solid fa-star-half-stroke"></i>
+        <div>
+          <strong>5,0 / 5</strong>
+          <span>en Google (193)</span>
+        </div>
+      </div>
+      <div class="usp-item">
+        <i class="fa-solid fa-calendar-check"></i>
+        <div>
+          <strong>Cita previa</strong>
+          <span>sin esperas</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== NOSOTROS ===== -->
   <section class="about" id="nosotros">
     <div class="container about-grid">
       <div class="about-image">
-        <img src="images/local por dentro.webp" alt="Interior de Barbería del Puerto en Almerimar" loading="lazy" />
+        <img src="images/local por dentro.webp" alt="Interior de Barbería del Puerto en Almerimar" loading="lazy" decoding="async" width="800" height="1000" />
         <div class="about-badge">
           <span class="num">+10</span>
           <span class="txt">años de experiencia</span>
@@ -206,24 +321,41 @@
 
       <div class="about-text">
         <span class="section-tag">Sobre nosotros</span>
-        <h2>Bienvenido a <span class="gold">Barbería del Puerto</span></h2>
+        <h2>La <span class="gold">barbería de referencia</span> en Almerimar</h2>
         <p>
-          Somos un establecimiento especializado en el cuidado personal masculino,
-          situado junto al puerto deportivo de Almerimar. Apostamos por un trato
-          cercano, un ambiente relajado y un servicio profesional en cada detalle.
+          <strong>Barbería del Puerto</strong> nació con un objetivo claro: ofrecer
+          el mejor servicio de <strong>peluquería masculina en Almerimar</strong>
+          combinando técnicas tradicionales con las tendencias actuales. Llevamos
+          más de una década perfeccionando cada corte, cada degradado y cada
+          arreglo de barba para clientes locales y turistas que confían en nosotros
+          temporada tras temporada.
         </p>
         <p>
-          Tanto si buscas un corte clásico, un degradado moderno, perfilar la barba
-          o disfrutar de un afeitado tradicional con toalla caliente, nuestro
-          objetivo es que salgas sintiéndote mejor de como entraste.
+          Nuestra ubicación junto al <strong>puerto deportivo de Almerimar</strong>
+          nos convierte en una parada habitual también para vecinos de
+          <strong>El Ejido, Roquetas de Mar, La Mojonera y Balerma</strong>.
+          Atendemos con cita previa para garantizarte un servicio sin esperas
+          y con toda nuestra atención.
+        </p>
+        <p>
+          Trabajamos con productos profesionales de primeras marcas para el
+          cuidado del cabello y la barba, y adaptamos cada servicio a tu tipo
+          de pelo, forma de rostro y estilo de vida. Aquí no cortamos por cortar:
+          <strong>te asesoramos para que salgas con la versión más cuidada de ti mismo</strong>.
         </p>
 
         <ul class="about-features">
-          <li><i class="fa-solid fa-scissors"></i> Profesionales con experiencia</li>
+          <li><i class="fa-solid fa-scissors"></i> Más de 10 años de oficio</li>
           <li><i class="fa-solid fa-anchor"></i> Junto al puerto deportivo</li>
-          <li><i class="fa-solid fa-spray-can-sparkles"></i> Productos de calidad</li>
+          <li><i class="fa-solid fa-spray-can-sparkles"></i> Productos premium</li>
           <li><i class="fa-solid fa-calendar-check"></i> Cita previa sin esperas</li>
+          <li><i class="fa-solid fa-hand-holding-heart"></i> Trato cercano</li>
+          <li><i class="fa-solid fa-shield-halved"></i> Higiene y desinfección</li>
         </ul>
+
+        <a href="https://wa.me/34603235191" class="btn btn-primary about-cta" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i> Reserva tu cita ahora
+        </a>
       </div>
     </div>
   </section>
@@ -287,7 +419,7 @@
         <div class="carousel-track-wrapper">
           <ul class="carousel-track" id="carouselTrack">
             <li class="service-card">
-              <div class="service-img"><img src="images/corte3.webp" alt="Corte de pelo clásico" loading="lazy" /></div>
+              <div class="service-img"><img src="images/corte3.webp" alt="Corte de pelo clásico" loading="lazy" decoding="async" /></div>
               <div class="service-body">
                 <h3>Corte clásico</h3>
                 <p>Corte tradicional a tijera y máquina, adaptado a tu estilo y forma de rostro.</p>
@@ -295,7 +427,7 @@
               </div>
             </li>
             <li class="service-card">
-              <div class="service-img"><img src="images/corte2.webp" alt="Corte degradado fade" loading="lazy" /></div>
+              <div class="service-img"><img src="images/corte2.webp" alt="Corte degradado fade" loading="lazy" decoding="async" /></div>
               <div class="service-body">
                 <h3>Degradado / Fade</h3>
                 <p>Degradados limpios y precisos: low, mid o skin fade según tu preferencia.</p>
@@ -303,7 +435,7 @@
               </div>
             </li>
             <li class="service-card">
-              <div class="service-img"><img src="https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?auto=format&fit=crop&w=800&q=80" alt="Corte moderno" loading="lazy" /></div>
+              <div class="service-img"><img src="https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?auto=format&fit=crop&w=500&q=70" alt="Corte moderno" loading="lazy" decoding="async" /></div>
               <div class="service-body">
                 <h3>Corte moderno</h3>
                 <p>Estilos actuales y de tendencia, ideales para un look fresco y cuidado.</p>
@@ -311,7 +443,7 @@
               </div>
             </li>
             <li class="service-card">
-              <div class="service-img"><img src="https://images.unsplash.com/photo-1620331311520-246422fd82f9?auto=format&fit=crop&w=800&q=80" alt="Arreglo de barba" loading="lazy" /></div>
+              <div class="service-img"><img src="https://images.unsplash.com/photo-1620331311520-246422fd82f9?auto=format&fit=crop&w=500&q=70" alt="Arreglo de barba" loading="lazy" decoding="async" /></div>
               <div class="service-body">
                 <h3>Arreglo de barba</h3>
                 <p>Perfilado, recorte e hidratación para una barba definida y saludable.</p>
@@ -319,7 +451,7 @@
               </div>
             </li>
             <li class="service-card">
-              <div class="service-img"><img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=800&q=80" alt="Afeitado tradicional con toalla caliente" loading="lazy" /></div>
+              <div class="service-img"><img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=500&q=70" alt="Afeitado tradicional con toalla caliente" loading="lazy" decoding="async" /></div>
               <div class="service-body">
                 <h3>Afeitado tradicional</h3>
                 <p>Afeitado a navaja con toalla caliente, aceites y bálsamos. Una experiencia.</p>
@@ -327,15 +459,7 @@
               </div>
             </li>
             <li class="service-card">
-              <div class="service-img"><img src="images/corte4.webp" alt="Corte tradicional con barba perfilada" loading="lazy" /></div>
-              <div class="service-body">
-                <h3>Corte + Barba</h3>
-                <p>El pack más completo: corte personalizado y arreglo de barba en una visita.</p>
-                <span class="service-price">desde 20€</span>
-              </div>
-            </li>
-            <li class="service-card">
-              <div class="service-img"><img src="images/corteespecial.webp" alt="Corte infantil" loading="lazy" /></div>
+              <div class="service-img"><img src="images/corteespecial.webp" alt="Corte infantil" loading="lazy" decoding="async" /></div>
               <div class="service-body">
                 <h3>Corte infantil</h3>
                 <p>Cortes para los más pequeños con paciencia y un ambiente amable.</p>
@@ -343,7 +467,7 @@
               </div>
             </li>
             <li class="service-card">
-              <div class="service-img"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=800&q=80" alt="Asesoramiento de estilo" loading="lazy" /></div>
+              <div class="service-img"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=500&q=70" alt="Asesoramiento de estilo" loading="lazy" decoding="async" /></div>
               <div class="service-body">
                 <h3>Asesoramiento</h3>
                 <p>Te ayudamos a elegir el corte y la barba que mejor encajan con tu rostro.</p>
@@ -360,6 +484,27 @@
     </div>
   </section>
 
+  <!-- ===== CTA BANNER ===== -->
+  <section class="cta-banner">
+    <div class="container">
+      <div class="cta-content">
+        <div class="cta-text">
+          <span class="section-tag">¿A qué esperas?</span>
+          <h2>Reserva tu cita en <span class="gold">menos de 30 segundos</span></h2>
+          <p>Sin llamadas largas, sin esperas. Escríbenos por WhatsApp y elige el día que mejor te venga.</p>
+        </div>
+        <div class="cta-actions">
+          <a href="https://wa.me/34603235191?text=Hola%2C+quiero+reservar+una+cita" class="btn btn-primary" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i> WhatsApp
+          </a>
+          <a href="tel:+34603235191" class="btn btn-outline-light">
+            <i class="fa-solid fa-phone"></i> Llamar
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== GALERÍA ===== -->
   <section class="gallery" id="galeria">
     <div class="container">
@@ -370,12 +515,12 @@
       </div>
 
       <div class="gallery-grid" id="galleryGrid">
-        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=900&q=80" alt="Corte de pelo profesional" loading="lazy" /></figure>
-        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=900&q=80" alt="Sillón de barbería clásico" loading="lazy" /></figure>
-        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1620331311520-246422fd82f9?auto=format&fit=crop&w=900&q=80" alt="Arreglo de barba" loading="lazy" /></figure>
-        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=900&q=80" alt="Afeitado tradicional con navaja" loading="lazy" /></figure>
-        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=900&q=80" alt="Herramientas de barbero" loading="lazy" /></figure>
-        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=900&q=80" alt="Detalle de degradado" loading="lazy" /></figure>
+        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=600&q=70" alt="Corte de pelo profesional" loading="lazy" decoding="async" /></figure>
+        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=70" alt="Sillón de barbería clásico" loading="lazy" decoding="async" /></figure>
+        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1620331311520-246422fd82f9?auto=format&fit=crop&w=600&q=70" alt="Arreglo de barba" loading="lazy" decoding="async" /></figure>
+        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=600&q=70" alt="Afeitado tradicional con navaja" loading="lazy" decoding="async" /></figure>
+        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=600&q=70" alt="Herramientas de barbero" loading="lazy" decoding="async" /></figure>
+        <figure class="gallery-item"><img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=600&q=70" alt="Detalle de degradado" loading="lazy" decoding="async" /></figure>
       </div>
 
       <!-- Lightbox -->
@@ -472,6 +617,128 @@
     </div>
   </section>
 
+  <!-- ===== ZONAS QUE ATENDEMOS ===== -->
+  <section class="areas">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Cobertura</span>
+        <h2>Vienen a vernos desde toda la <span class="gold">comarca</span></h2>
+        <p>Estamos en Almerimar, pero también nos visitan clientes de los pueblos cercanos.</p>
+      </div>
+
+      <ul class="areas-list">
+        <li><i class="fa-solid fa-location-dot"></i> <strong>Almerimar</strong></li>
+        <li><i class="fa-solid fa-location-dot"></i> El Ejido</li>
+        <li><i class="fa-solid fa-location-dot"></i> Roquetas de Mar</li>
+        <li><i class="fa-solid fa-location-dot"></i> La Mojonera</li>
+        <li><i class="fa-solid fa-location-dot"></i> Balerma</li>
+        <li><i class="fa-solid fa-location-dot"></i> Guardias Viejas</li>
+        <li><i class="fa-solid fa-location-dot"></i> Las Norias</li>
+        <li><i class="fa-solid fa-location-dot"></i> Adra</li>
+        <li><i class="fa-solid fa-location-dot"></i> Berja</li>
+        <li><i class="fa-solid fa-location-dot"></i> Dalías</li>
+      </ul>
+
+      <p class="areas-note">
+        ¿Vienes de vacaciones a la <strong>Costa de Almería</strong>? Pásate por la barbería
+        y llévate un look fresco para disfrutar de la playa y el puerto.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Preguntas frecuentes</span>
+        <h2>Resolvemos tus <span class="gold">dudas</span></h2>
+        <p>Lo que más nos preguntan antes de la primera visita.</p>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>
+            <span>¿Necesito pedir cita previa?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </summary>
+          <div class="faq-body">
+            <p>Sí, te lo recomendamos encarecidamente. Trabajamos con cita previa para garantizarte una atención sin esperas y con todo el tiempo necesario. Puedes reservar por WhatsApp al 603 23 51 91 o llamándonos directamente.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>¿Cuánto cuesta un corte de pelo en Barbería del Puerto?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </summary>
+          <div class="faq-body">
+            <p>Los cortes parten desde <strong>12€ (corte clásico)</strong>. Un corte moderno o degradado cuesta 14€, y el corte infantil 10€. El arreglo de barba 8€ y el afeitado tradicional 15€. Consúltanos directamente por WhatsApp si tienes dudas sobre algún servicio concreto.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>¿Hacéis afeitado tradicional con navaja?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </summary>
+          <div class="faq-body">
+            <p>Sí. Nuestro afeitado tradicional incluye toalla caliente, aceite pre-afeitado, espuma profesional, pasada con navaja y bálsamo post-afeitado. Una experiencia completa de relajación por <strong>15€</strong>. Es uno de nuestros servicios estrella, especialmente para ocasiones especiales como bodas y eventos.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>¿Atendéis a niños?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </summary>
+          <div class="faq-body">
+            <p>¡Por supuesto! Tenemos un servicio específico de <strong>corte infantil</strong> hasta los 12 años por 10€. Trabajamos con paciencia, tacto y un ambiente amable para que la primera experiencia en la barbería sea positiva.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>¿Qué métodos de pago aceptáis?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </summary>
+          <div class="faq-body">
+            <p>Aceptamos <strong>efectivo, tarjeta y Bizum</strong>. Sin importe mínimo. Si pagas con tarjeta no hay recargo.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>¿Dónde estáis exactamente y hay aparcamiento?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </summary>
+          <div class="faq-body">
+            <p>Estamos en <strong>Calle Draga, 3, 04711 Almerimar (Almería)</strong>, a menos de 100 metros del puerto deportivo. Hay aparcamiento gratuito en la zona del puerto y calles aledañas. Acceso fácil a pie, en coche o bicicleta. <a href="#contacto">Ver mapa</a>.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>¿Cuánto dura una sesión?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </summary>
+          <div class="faq-body">
+            <p>Depende del servicio. Un corte estándar suele llevar entre 30 y 40 minutos. El afeitado tradicional es más pausado, sobre 30 minutos. Reservamos el tiempo necesario para que disfrutes sin prisa.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>¿Atendéis a turistas que pasan poco tiempo en Almerimar?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </summary>
+          <div class="faq-body">
+            <p>Sí, gran parte de nuestros clientes son turistas que pasan unos días en la zona. Si vienes en verano o por temporada, reserva con antelación porque solemos llenarnos. Hablamos español e inglés básico para clientes internacionales.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== HORARIO ===== -->
   <section class="schedule">
     <div class="container schedule-grid">
@@ -503,45 +770,56 @@
   <section class="contact" id="contacto">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Contacto</span>
-        <h2>Cómo <span class="gold">encontrarnos</span></h2>
-        <p>Ubicación ideal cerca del puerto de Almerimar. Fácil acceso a pie, en coche o en bicicleta.</p>
+        <span class="section-tag">Contacto y reserva</span>
+        <h2>Estamos a un <span class="gold">mensaje</span> de distancia</h2>
+        <p>La forma más rápida de reservar es por WhatsApp. También puedes llamarnos o escribirnos un correo.</p>
       </div>
 
       <div class="contact-grid">
-        <div class="contact-cards">
-          <a href="https://maps.google.com/?q=Calle+Draga+3+Almerimar+Almeria" target="_blank" rel="noopener" class="contact-card">
-            <i class="fa-solid fa-location-dot"></i>
-            <h4>Dirección</h4>
-            <p>Calle Draga, 3<br>04711 Almerimar, Almería</p>
-          </a>
-          <a href="tel:+34603235191" class="contact-card">
-            <i class="fa-solid fa-phone"></i>
-            <h4>Teléfono</h4>
-            <p>603 23 51 91</p>
-          </a>
-          <a href="https://wa.me/34603235191" target="_blank" rel="noopener" class="contact-card">
-            <i class="fa-brands fa-whatsapp"></i>
-            <h4>WhatsApp</h4>
-            <p>Reserva tu cita al instante</p>
-          </a>
-          <a href="mailto:sebastian19882@outlook.es" class="contact-card">
-            <i class="fa-solid fa-envelope"></i>
-            <h4>Email</h4>
-            <p>sebastian19882@outlook.es</p>
-          </a>
+        <div class="contact-left">
+          <div class="contact-cards">
+            <a href="https://wa.me/34603235191?text=Hola%2C+quiero+reservar+una+cita" target="_blank" rel="noopener" class="contact-card highlight">
+              <i class="fa-brands fa-whatsapp"></i>
+              <h4>WhatsApp</h4>
+              <p>Reserva en 30 segundos</p>
+              <span class="card-arrow">Escribir →</span>
+            </a>
+            <a href="tel:+34603235191" class="contact-card">
+              <i class="fa-solid fa-phone"></i>
+              <h4>Llámanos</h4>
+              <p>603 23 51 91</p>
+              <span class="card-arrow">Llamar →</span>
+            </a>
+            <a href="https://maps.google.com/?q=Calle+Draga+3+Almerimar+Almeria" target="_blank" rel="noopener" class="contact-card">
+              <i class="fa-solid fa-location-dot"></i>
+              <h4>Dirección</h4>
+              <p>Calle Draga, 3<br>04711 Almerimar, Almería</p>
+              <span class="card-arrow">Cómo llegar →</span>
+            </a>
+            <a href="mailto:sebastian19982@outlook.es" class="contact-card">
+              <i class="fa-solid fa-envelope"></i>
+              <h4>Email</h4>
+              <p>sebastian19882<br>@outlook.es</p>
+              <span class="card-arrow">Escribir →</span>
+            </a>
+          </div>
+
+          <div class="contact-extra">
+            <h3><i class="fa-solid fa-circle-info"></i> Antes de venir</h3>
+            <ul>
+              <li><i class="fa-solid fa-check"></i> Reserva con un par de días de antelación, sobre todo en temporada alta.</li>
+              <li><i class="fa-solid fa-check"></i> Si necesitas cancelar, avísanos cuanto antes para liberar el hueco.</li>
+              <li><i class="fa-solid fa-check"></i> Disponemos de aparcamiento gratuito en la zona del puerto.</li>
+            </ul>
+          </div>
         </div>
 
-        <div class="contact-map">
-          <iframe
-            src="https://www.google.com/maps?q=Calle+Draga+3+Almerimar+Almeria&output=embed"
-            width="100%" height="100%"
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Mapa de Barbería del Puerto">
-          </iframe>
+        <div class="contact-map" id="contactMap"
+             data-src="https://www.google.com/maps?q=Calle+Draga+3+Almerimar+Almeria&output=embed">
+          <div class="map-placeholder">
+            <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
+            <p>Cargando mapa...</p>
+          </div>
         </div>
       </div>
     </div>

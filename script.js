@@ -217,6 +217,40 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach(el => el.classList.add('visible'));
   }
 
+  /* ----- Lazy-load Google Maps iframe ----- */
+  const mapContainer = document.getElementById('contactMap');
+  if (mapContainer && 'IntersectionObserver' in window) {
+    const mapObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const src = mapContainer.dataset.src;
+          if (src) {
+            const iframe = document.createElement('iframe');
+            iframe.src = src;
+            iframe.title = 'Mapa de Barbería del Puerto';
+            iframe.loading = 'lazy';
+            iframe.allowFullscreen = true;
+            iframe.referrerPolicy = 'no-referrer-when-downgrade';
+            iframe.addEventListener('load', () => {
+              const placeholder = mapContainer.querySelector('.map-placeholder');
+              if (placeholder) placeholder.style.display = 'none';
+            });
+            mapContainer.appendChild(iframe);
+            obs.unobserve(mapContainer);
+          }
+        }
+      });
+    }, { rootMargin: '200px' });
+    mapObserver.observe(mapContainer);
+  } else if (mapContainer) {
+    // Fallback for old browsers
+    const iframe = document.createElement('iframe');
+    iframe.src = mapContainer.dataset.src;
+    iframe.title = 'Mapa de Barbería del Puerto';
+    iframe.loading = 'lazy';
+    mapContainer.appendChild(iframe);
+  }
+
   /* ----- Cookie banner ----- */
   const cookieBanner = document.getElementById('cookieBanner');
   const cookieAccept = document.getElementById('cookieAccept');
